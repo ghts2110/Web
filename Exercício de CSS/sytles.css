@@ -1,0 +1,14 @@
+ul li a:hover {
+    background-color:#08ec0b;
+}
+
+div p{
+    margin-bottom:  20px;
+    padding: 10px;
+}
+
+div input [type = test]{
+    border: solid;
+    border-width:  10px;
+    color: #b20f0f;
+}
