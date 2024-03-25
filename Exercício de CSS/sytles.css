@@ -1,5 +1,5 @@
 ul li a:hover {
-    background-color:#08ec0b;
+    background-color:#f2f2f2;
 }
 
 div p{
@@ -7,8 +7,18 @@ div p{
     padding: 10px;
 }
 
-div input [type = test]{
+text :focus{
     border: solid;
     border-width:  10px;
-    color: #b20f0f;
+    color: #e61010;
 }
+
+div input[type="text"]:focus {
+    border: solid 10px;
+    color: #ccc;
+}
+
+div ul li:first-child a{
+    color: #008000
+}
+
