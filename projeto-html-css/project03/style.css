@@ -48,4 +48,20 @@ body{
     list-style: none;
 }
 
+.div3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.setOfThree {
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.setOfThree div{
+    background-color: cornflowerblue;
+    border-radius: 5%;
+}
 
