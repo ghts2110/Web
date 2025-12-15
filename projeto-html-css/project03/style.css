@@ -65,3 +65,25 @@ body{
     border-radius: 5%;
 }
 
+.div4 {
+    background-color: darkblue;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div4 ul{
+    list-style: none;
+    display: flex;
+}
+
+.div4 li {
+    display: flex;
+    flex-direction: column;
+}
+
+.div4 img {
+    background-color: yellow;
+    border-radius: 50%;
+}
