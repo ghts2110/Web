@@ -65,29 +65,6 @@ body{
     border-radius: 5%;
 }
 
-.div4 {
-    background-color: darkblue;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.div4 ul{
-    list-style: none;
-    display: flex;
-}
-
-.div4 li {
-    display: flex;
-    flex-direction: column;
-}
-
-.div4 img {
-    background-color: yellow;
-    border-radius: 50%;
-}
-
 .div5 {
     display: flex;
     flex-direction: column;
@@ -98,4 +75,56 @@ body{
     display: flex;
     align-items: center;
     background-color: darkblue;
+}
+
+.h-40 {
+    height: 400px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.w-115 {
+    width: 115px;
+}
+
+.w-100 {
+    width: 213px;
+}
+
+.bg-blue-800 {
+    background-color: #0a0049;
+}
+
+.bg-yellow-400{
+    background-color: #ffe200;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-xl {
+    font-size: 50px;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.border-rad-50 {
+    border-radius: 50%;
+}
+
+.justify-cont-around {
+    justify-content: space-evenly;
 }
