@@ -87,3 +87,15 @@ body{
     background-color: yellow;
     border-radius: 50%;
 }
+
+.div5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div5 .answerBoxes div{
+    display: flex;
+    align-items: center;
+    background-color: darkblue;
+}
