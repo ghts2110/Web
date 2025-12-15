@@ -3,18 +3,6 @@ body{
     margin: 0;
 }
 
-.div5 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.div5 .answerBoxes div{
-    display: flex;
-    align-items: center;
-    background-color: darkblue;
-}
-
 .h-full {
     height: 100%;
 }
@@ -162,7 +150,9 @@ body{
     padding-left: 1em;
 }
 
-
+.padding-top {
+    padding-top: 1em;
+}
 
 .hover--text-yellow-400:hover {
     color: #ffe200;
