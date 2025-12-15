@@ -1,0 +1,35 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navigationBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: darkblue;
+
+    color: white;
+} 
+
+.navigation {
+    display: flex;
+    list-style: none;
+} 
+
+.navigation a {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    color: white;
+}
+
+.navigation a:hover {
+    background: blue;
+}
+
+.yellowButton {
+    background-color: yellow;
+    color: black;
+    border-radius: 20%;
+}
+
