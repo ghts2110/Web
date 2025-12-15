@@ -33,3 +33,19 @@ body{
     border-radius: 20%;
 }
 
+.div2 {
+    display: flex;
+    background-color: yellow;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.div2 img {
+    border-radius: 10%;
+}
+
+.div2 .ComoContratrar ul {
+    list-style: none;
+}
+
+
