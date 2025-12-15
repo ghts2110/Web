@@ -1,6 +1,7 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    overflow-x: hidden;
 }
 
 .h-full {
@@ -19,6 +20,10 @@ body{
     height: 400px;
 }
 
+.h-250 {
+    height: 250px;
+}
+
 .h-150 {
     height: 150px;
 }
@@ -27,8 +32,16 @@ body{
     height: 45px;
 }
 
+.h-40 {
+    height: 40px;
+}
+
 .w-full {
     width: 100%;
+}
+
+.w-almost-full {
+    width: 90%;
 }
 
 .w-half {
@@ -89,6 +102,10 @@ body{
 
 .text-blue-800 {
     color: #0a0049;
+}
+
+.text-yellow-400 {
+    color: #ffe200;
 }
 
 .text-5xl {
