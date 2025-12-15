@@ -3,10 +3,6 @@ body{
     margin: 0;
 }
 
-a:hover {
-    color: #ffe200;
-}
-
 .div2 {
     display: flex;
     background-color: yellow;
@@ -51,6 +47,14 @@ a:hover {
     background-color: darkblue;
 }
 
+.h-full {
+    height: 100%;
+}
+
+.h-700 {
+    height: 700px;
+}
+
 .h-400 {
     height: 400px;
 }
@@ -63,15 +67,23 @@ a:hover {
     width: 100%;
 }
 
+.w-half {
+    width: 40%;
+}
+
+.w-three-quarters{
+    width: 75%;
+}
+
 .w-115 {
     width: 115px;
 }
 
-.w-100 {
+.w-213 {
     width: 213px;
 }
 
-.w-100 {
+.w-120 {
     width: 120px;
 }
 
@@ -87,7 +99,7 @@ a:hover {
     color: white;
 }
 
-.text-xl {
+.text-5xl {
     font-size: 50px;
 }
 
@@ -123,6 +135,10 @@ a:hover {
     justify-content: space-evenly;
 }
 
+.justify-cont-between {
+    justify-content: space-between;
+}
+
 .list-style-none {
     list-style: none;
 }
@@ -133,4 +149,25 @@ a:hover {
 
 .padding {
     padding: 1em;
+}
+
+.hover--text-yellow-400:hover {
+    color: #ffe200;
+}
+
+.position-relative {
+    position: relative;
+    overflow: hidden;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.top-25 {
+    top: 25%;
+}
+
+.left-10 {
+    left: 10%;
 }
