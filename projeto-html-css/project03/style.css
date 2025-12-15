@@ -3,21 +3,6 @@ body{
     margin: 0;
 }
 
-.div2 {
-    display: flex;
-    background-color: yellow;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.div2 img {
-    border-radius: 10%;
-}
-
-.div2 .ComoContratrar ul {
-    list-style: none;
-}
-
 .div3 {
     display: flex;
     flex-direction: column;
@@ -55,6 +40,10 @@ body{
     height: 700px;
 }
 
+.h-550 {
+    height: 525px;
+}
+
 .h-400 {
     height: 400px;
 }
@@ -79,12 +68,20 @@ body{
     width: 115px;
 }
 
+.w-120 {
+    width: 120px;
+}
+
 .w-213 {
     width: 213px;
 }
 
-.w-120 {
-    width: 120px;
+.w-350 {
+    width: 350px;
+}
+
+.w-500 {
+    width: 500px;
 }
 
 .bg-blue-800 {
@@ -97,6 +94,10 @@ body{
 
 .text-white {
     color: white;
+}
+
+.text-blue-800 {
+    color: #0a0049;
 }
 
 .text-5xl {
@@ -131,14 +132,17 @@ body{
     border-radius: 10%;
 }
 
-.justify-cont-around {
+.justify-center {
+    justify-content: center;
+}
+
+.justify-around {
     justify-content: space-evenly;
 }
 
-.justify-cont-between {
+.justify-between {
     justify-content: space-between;
 }
-
 .list-style-none {
     list-style: none;
 }
