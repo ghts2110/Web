@@ -16,7 +16,7 @@
 
     const prompts = ref([]);
     const promptsVersion = ref({});
-    const promptText = ref({"1.v0": "oi", "2.v0": "ola"});
+    const promptText = ref({});
 
     function addPrompt() {
         prompts.value.push({ id: idPrompts++, text: newPrompt.value });
@@ -54,6 +54,15 @@
     function promptVersionsSelected(prompt){
         promptSelected.value = prompt;
         showPromptVersion.value = true;
+    }
+
+    function savePrompt(){
+        const nextVersion = promptsVersion.value[promptSelected.value].length
+        const nameNewPrompt = `${promptSelected.value}.v${(nextVersion)}`
+        
+        promptsVersion.value[promptSelected.value].push({id: idPromptVersion++, text: nameNewPrompt});
+        
+        promptText.value[nameNewPrompt] = editorText.value;
     }
 </script>
 
@@ -102,7 +111,7 @@
 
     <div v-if="showModalPromptVersionEdit" @click.self="showModalPromptEdit = false" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
         <div class="w-full max-w-md rounded-lg bg-white p-4 shadow">
-            <h2 class="text-2xl">{{promptEditName.text}} .-.</h2>
+            <h2 class="text-2xl">{{promptEditName.text}}</h2>
 
             <form @submit.prevent="editPrompt" class="mt-3 space-y-3">
                 <input type="text" v-model="newPrompt" required placeholder="Mudar nome" class="w-full rounded-md border px-3 py-2">
@@ -117,7 +126,6 @@
             </form>
         </div>
     </div>
-    
 
     <div class="w-full container">
         <div class="mx-10 flex space-x-5">
@@ -141,7 +149,7 @@
 
                 <div class="flex justify-end space-x-8 p-5">
                     <button type="button" @click="editorText = ''" class="text-lg rounded-md px-4 py-2 border">Limpar</button>
-                    <button class="text-lg rounded-md bg-black text-white px-4 py-2">Salvar</button>
+                    <button @click="savePrompt" class="text-lg rounded-md bg-black text-white px-4 py-2">Salvar</button>
                 </div>
             </div>
         </div>
