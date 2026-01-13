@@ -5,7 +5,8 @@
     let idPromptVersion = 1000;
 
     const showModalAdd = ref(false);
-    const showModalEdit = ref(false);
+    const showModalPromptEdit = ref(false);
+    const showModalPromptVersionEdit = ref(false);
     const showPromptVersion = ref(false);
 
     const newPrompt = ref('');
@@ -31,19 +32,23 @@
     const promptEditName = ref('');
     function showEditPrompt(promtp) {
         promptEditName.value = promtp;
-        showModalEdit.value = true;
     }   
 
     function editPrompt(){
         promptsVersion.value[newPrompt.value] = promptsVersion.value[promptEditName.value.text];
         promptEditName.value.text = newPrompt.value;
-        showModalEdit.value = false;
+        showModalPromptEdit.value = false;
     }
 
     function removePrompt(prompt) {
         prompts.value = prompts.value.filter((t) => t !== prompt);
         promptsVersion.value[prompt.text] = [];
-        showModalEdit.value = false;
+        showModalPromptEdit.value = false;
+    }
+
+    function removePromptVersion(prompt) {
+        promptsVersion.value[promptSelected.value] = promptsVersion.value[promptSelected.value].filter((t) => t.id !== prompt.id);
+        showModalPromptVersionEdit.value = false;
     }
 
     function promptVersionsSelected(prompt){
@@ -77,7 +82,7 @@
         </div>
     </div>
 
-    <div v-if="showModalEdit" @click.self="showModalEdit = false" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
+    <div v-if="showModalPromptEdit" @click.self="showModalPromptEdit = false" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
         <div class="w-full max-w-md rounded-lg bg-white p-4 shadow">
             <h2 class="text-2xl">{{promptEditName.text}}</h2>
 
@@ -87,7 +92,7 @@
                 <div class="flex justify-between">
                     <button @click="removePrompt(promptEditName)" type="button" class="text-lg rounded-md bg-red-500 text-white px-4 py-2">Deletar</button>
                     <div class="flex justify-end gap-2">
-                        <button type="button" class="text-lg rounded-md px-4 py-2 border" @click.self="showModalEdit = false">Cancelar</button>
+                        <button type="button" class="text-lg rounded-md px-4 py-2 border" @click.self="showModalPromptEdit = false">Cancelar</button>
                         <button type="submit" class="text-lg rounded-md bg-black text-white px-4 py-2">Salvar</button>
                     </div>
                 </div>
@@ -95,19 +100,38 @@
         </div>
     </div>
 
+    <div v-if="showModalPromptVersionEdit" @click.self="showModalPromptEdit = false" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
+        <div class="w-full max-w-md rounded-lg bg-white p-4 shadow">
+            <h2 class="text-2xl">{{promptEditName.text}} .-.</h2>
+
+            <form @submit.prevent="editPrompt" class="mt-3 space-y-3">
+                <input type="text" v-model="newPrompt" required placeholder="Mudar nome" class="w-full rounded-md border px-3 py-2">
+                
+                <div class="flex justify-between">
+                    <button @click="removePromptVersion(promptEditName)" type="button" class="text-lg rounded-md bg-red-500 text-white px-4 py-2">Deletar</button>
+                    <div class="flex justify-end gap-2">
+                        <button type="button" class="text-lg rounded-md px-4 py-2 border" @click.self="showModalPromptEdit = false">Cancelar</button>
+                        <button type="submit" class="text-lg rounded-md bg-black text-white px-4 py-2">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+
     <div class="w-full container">
         <div class="mx-10 flex space-x-5">
             <ul class="space-y-3">
                 <li v-for="prompt in prompts" :key="prompt.id" class="flex border rounded-lg py-2 px-4 text-lg w-70">
                     <button @click="promptVersionsSelected(prompt.text)" class="w-full text-start">{{ prompt.text }}</button>
-                    <button @click="showEditPrompt(prompt)" class="w-7"> &#8942 </button>
+                    <button @click="showEditPrompt(prompt), showModalPromptEdit = true" class="w-7"> &#8942 </button>
                 </li>
             </ul>
 
             <ul v-if="showPromptVersion" class="space-y-3">
                 <li v-for="promptVersion in promptsVersion[promptSelected]" :key="promptVersion.id" class="flex border rounded-lg py-2 px-4 text-lg w-70">
                     <button @click="promptVersionSelected = promptVersion.text, editorText = promptText[promptVersionSelected]" class="w-full text-start">{{ promptVersion.text }}</button>
-                    <button @click="showEditPrompt(promptVersion)" class="w-7"> &#8942 </button>
+                    <button @click="showEditPrompt(promptVersion), showModalPromptVersionEdit = true" class="w-7"> &#8942 </button>
                 </li>
             </ul>
 
