@@ -9,15 +9,19 @@
     const showPromptVersion = ref(false);
 
     const newPrompt = ref('');
-    const prompts = ref([]);
-    const promptVersion = ref({});
     const promptSelected = ref('');
+    const editorText = ref('');
+    const promptVersionSelected = ref('');
+
+    const prompts = ref([]);
+    const promptsVersion = ref({});
+    const promptText = ref({"1.v0": "oi", "2.v0": "ola"});
 
     function addPrompt() {
         prompts.value.push({ id: idPrompts++, text: newPrompt.value });
 
-        promptVersion.value[newPrompt.value] = [];
-        promptVersion.value[newPrompt.value].push({id: idPromptVersion++, text: newPrompt.value + ".v0"});
+        promptsVersion.value[newPrompt.value] = [];
+        promptsVersion.value[newPrompt.value].push({id: idPromptVersion++, text: newPrompt.value + ".v0"});
         
         newPrompt.value = '';
         
@@ -31,14 +35,14 @@
     }   
 
     function editPrompt(){
-        promptVersion.value[newPrompt.value] = promptVersion.value[promptEditName.value.text];
+        promptsVersion.value[newPrompt.value] = promptsVersion.value[promptEditName.value.text];
         promptEditName.value.text = newPrompt.value;
         showModalEdit.value = false;
     }
 
     function removePrompt(prompt) {
         prompts.value = prompts.value.filter((t) => t !== prompt);
-        promptVersion.value[prompt.text] = [];
+        promptsVersion.value[prompt.text] = [];
         showModalEdit.value = false;
     }
 
@@ -57,7 +61,6 @@
         </div>
     
     </div>
-
 
     <div v-if="showModalAdd" @click.self="showModalAdd = false" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
         <div class="w-full max-w-md rounded-lg bg-white p-4 shadow">
@@ -95,21 +98,27 @@
     <div class="w-full container">
         <div class="mx-10 flex space-x-5">
             <ul class="space-y-3">
-                <li v-for="prompt in prompts" :key="prompt.id" class="flex justify-between border rounded-lg py-2 px-4 text-lg space-x-60">
+                <li v-for="prompt in prompts" :key="prompt.id" class="flex border rounded-lg py-2 px-4 text-lg w-70">
                     <button @click="promptVersionsSelected(prompt.text)" class="w-full text-start">{{ prompt.text }}</button>
-                    <button @click="showEditPrompt(prompt)" class=""> &#8942 </button>
+                    <button @click="showEditPrompt(prompt)" class="w-7"> &#8942 </button>
                 </li>
             </ul>
 
             <ul v-if="showPromptVersion" class="space-y-3">
-                <li v-for="promptVertion in promptVersion[promptSelected]" :key="promptVertion.id" class="flex justify-between border rounded-lg py-2 px-4 text-lg space-x-60">
-                    <button class="w-full text-start">{{ promptVertion.text }}</button>
-                    <button @click="showEditPrompt(promptVertion)" class=""> &#8942 </button>
+                <li v-for="promptVersion in promptsVersion[promptSelected]" :key="promptVersion.id" class="flex border rounded-lg py-2 px-4 text-lg w-70">
+                    <button @click="promptVersionSelected = promptVersion.text, editorText = promptText[promptVersionSelected]" class="w-full text-start">{{ promptVersion.text }}</button>
+                    <button @click="showEditPrompt(promptVersion)" class="w-7"> &#8942 </button>
                 </li>
             </ul>
 
-            <div class="border rounded-2xl w-full h-200">
+            <div class="w-full fle flex-col">
+                <h2 class="text-2xl">{{ promptVersionSelected }}</h2>
+                <textarea v-model="editorText" class="border rounded-2xl w-full h-190"></textarea>
 
+                <div class="flex justify-end space-x-8 p-5">
+                    <button type="button" @click="editorText = ''" class="text-lg rounded-md px-4 py-2 border">Limpar</button>
+                    <button class="text-lg rounded-md bg-black text-white px-4 py-2">Salvar</button>
+                </div>
             </div>
         </div>
     </div>
