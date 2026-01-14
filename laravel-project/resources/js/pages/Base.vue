@@ -1,5 +1,8 @@
-<script setup>
+<script setup lang="ts">
     import { ref } from 'vue';
+
+    type Prompt = {id: number, text: string}
+    type PromptText = Record<string, string>;
 
     let idPrompts = 0;
     let idPromptVersion = 1000;
@@ -14,9 +17,9 @@
     const editorText = ref('');
     const promptVersionSelected = ref('');
 
-    const prompts = ref([]);
-    const promptsVersion = ref({});
-    const promptText = ref({});
+    const prompts = ref<Prompt[]>([]);
+    const promptsVersion = ref<Record<string, Prompt[]>>({});
+    const promptText = ref<PromptText>({});
 
     function addPrompt() {
         prompts.value.push({ id: idPrompts++, text: newPrompt.value });
@@ -29,10 +32,7 @@
         showModalAdd.value = false;
     }
 
-    const promptEditName = ref('');
-    function showEditPrompt(promtp) {
-        promptEditName.value = promtp;
-    }   
+    const promptEditName = ref<Prompt>({id: 0, text: ''});
 
     function editPrompt(){
         promptsVersion.value[newPrompt.value] = promptsVersion.value[promptEditName.value.text];
@@ -40,18 +40,20 @@
         showModalPromptEdit.value = false;
     }
 
-    function removePrompt(prompt) {
+    function removePrompt(prompt: Prompt) {
         prompts.value = prompts.value.filter((t) => t !== prompt);
         promptsVersion.value[prompt.text] = [];
         showModalPromptEdit.value = false;
+        promptVersionSelected.value = '';
     }
 
-    function removePromptVersion(prompt) {
+    function removePromptVersion(prompt: Prompt) {
         promptsVersion.value[promptSelected.value] = promptsVersion.value[promptSelected.value].filter((t) => t.id !== prompt.id);
         showModalPromptVersionEdit.value = false;
+        promptVersionSelected.value = '';
     }
 
-    function promptVersionsSelected(prompt){
+    function promptVersionsSelected(prompt: string) {
         promptSelected.value = prompt;
         showPromptVersion.value = true;
     }
@@ -131,19 +133,19 @@
         <div class="mx-10 flex space-x-5">
             <ul class="space-y-3">
                 <li v-for="prompt in prompts" :key="prompt.id" class="flex border rounded-lg py-2 px-4 text-lg w-70">
-                    <button @click="promptVersionsSelected(prompt.text)" class="w-full text-start">{{ prompt.text }}</button>
-                    <button @click="showEditPrompt(prompt), showModalPromptEdit = true" class="w-7"> &#8942 </button>
+                    <button @click="promptVersionsSelected(prompt.text), promptVersionSelected = ''" class="w-full text-start">{{ prompt.text }}</button>
+                    <button @click="promptEditName = prompt, showModalPromptEdit = true" class="w-7"> &#8942; </button>
                 </li>
             </ul>
 
             <ul v-if="showPromptVersion" class="space-y-3">
                 <li v-for="promptVersion in promptsVersion[promptSelected]" :key="promptVersion.id" class="flex border rounded-lg py-2 px-4 text-lg w-70">
                     <button @click="promptVersionSelected = promptVersion.text, editorText = promptText[promptVersionSelected]" class="w-full text-start">{{ promptVersion.text }}</button>
-                    <button @click="showEditPrompt(promptVersion), showModalPromptVersionEdit = true" class="w-7"> &#8942 </button>
+                    <button @click="promptEditName = promptVersion, showModalPromptVersionEdit = true" class="w-7"> &#8942; </button>
                 </li>
             </ul>
 
-            <div class="w-full fle flex-col">
+            <div v-if="promptVersionSelected" class="w-full fle flex-col">
                 <h2 class="text-2xl">{{ promptVersionSelected }}</h2>
                 <textarea v-model="editorText" class="border rounded-2xl w-full h-190"></textarea>
 
