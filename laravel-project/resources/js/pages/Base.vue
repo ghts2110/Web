@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { ref } from 'vue';
+    import { useForm } from "@inertiajs/vue3";
 
     type Prompt = {id: number, text: string}
     type PromptText = Record<string, string>;
@@ -21,6 +22,10 @@
     const promptsVersion = ref<Record<string, Prompt[]>>({});
     const promptText = ref<PromptText>({});
 
+    const form = useForm({
+        name: '',
+    })
+
     function addPrompt() {
         prompts.value.push({ id: idPrompts++, text: newPrompt.value });
 
@@ -29,7 +34,12 @@
         
         newPrompt.value = '';
         
-        showModalAdd.value = false;
+        form.post('/prompts', {
+            onSuccess: () => {
+                form.reset()
+                showModalAdd.value = false
+            },
+        })
     }
 
     const promptEditName = ref<Prompt>({id: 0, text: ''});
@@ -83,7 +93,7 @@
             <h2 class="text-2xl">Novo prompt</h2>
 
             <form class="mt-3 space-y-3" @submit.prevent="addPrompt">
-                <input class="w-full rounded-md border px-3 py-2" type="text" v-model="newPrompt" required placeholder="Nome do prompt">
+                <input v-model="form.name" required placeholder="Nome do prompt" class="w-full rounded-md border px-3 py-2" type="text">
                 
                 <div class="flex justify-end gap-2">
                     <button type="button" class="text-lg rounded-md px-4 py-2 border" @click.self="showModalAdd = false">Cancelar</button>
