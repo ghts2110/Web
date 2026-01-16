@@ -27,7 +27,7 @@ defineProps<{
         <Head title="Log in" />
 
         <div
-            v-if="status"
+    v-if="status"
             class="mb-4 text-center text-sm font-medium text-green-600"
         >
             {{ status }}
@@ -39,7 +39,7 @@ defineProps<{
             v-slot="{ errors, processing }"
             class="flex flex-col gap-6"
         >
-            <div class="grid gap-6">
+            <div class="grid gap-6 text-white">
                 <div class="grid gap-2">
                     <Label for="email">Email address</Label>
                     <Input

@@ -24,7 +24,7 @@
     }>()
     
     function addPrompt() {
-        form.post('/prompt-versions/', {
+        form.post('/prompts/', {
             onSuccess: () => {
                 form.reset()
                 showModalAdd.value = false

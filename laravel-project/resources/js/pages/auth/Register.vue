@@ -24,7 +24,7 @@ import { Form, Head } from '@inertiajs/vue3';
             v-slot="{ errors, processing }"
             class="flex flex-col gap-6"
         >
-            <div class="grid gap-6">
+            <div class="grid gap-6 text-white">
                 <div class="grid gap-2">
                     <Label for="name">Name</Label>
                     <Input

@@ -10,9 +10,10 @@ use Inertia\Inertia;
 
 class PromptController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $prompts = Prompt::query()
+            ->where('user_id', $request->user()->id)
             ->orderBy('id')
             ->get(['id','name']);
 
@@ -34,6 +35,7 @@ class PromptController extends Controller
 
         $prompt = Prompt::create([
             'name' => $data['name'],
+            'user_id' => $request->user()->id,
         ]);
 
         PromptVersion::create([
@@ -42,7 +44,7 @@ class PromptController extends Controller
             'content' => '', 
         ]);
 
-        return redirect()->route('prompts.index');
+        return redirect()->route('base');
     }
 
     public function storePV(Request $request, Prompt $prompt)
@@ -59,7 +61,7 @@ class PromptController extends Controller
             'content' => $data['content'], 
         ]);
 
-        return redirect()->route('prompts.index');
+        return redirect()->route('base');
     }
 
     public function updateP(Request $request, Prompt $prompt)
