@@ -2,6 +2,7 @@
 
 use Inertia\Inertia;
 use App\Http\Controllers\PromptController;
+use App\Http\Controllers\PromptVersionController;
 use Laravel\Fortify\Features;
 
 // Route::get('/', function () {
@@ -14,16 +15,12 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/base', function () {
-    return Inertia::render('Base');
-})->middleware(['auth', 'verified'])->name('base');
-
-
-Route::get('/base', [PromptController::class, 'index'])->middleware(['auth', 'verified'])->name('base');
-Route::post('/prompts', [PromptController::class, 'storeP'])->name('prompts.store');
-Route::post('/prompt-versions/{prompt}', [PromptController::class, 'storePV'])->name('promptVersions.store');
-Route::patch('/prompt/{prompt}', [PromptController::class, 'updateP'])->name('prompts.update');
-Route::patch('/prompt-versions/{promptsVersion}', [PromptController::class, 'updatePV'])->name('promptVersions.update');
-Route::delete('/prompts/{prompt}', [PromptController::class, 'destroyP'])->name('prompts.destroy');
-Route::delete('/prompt-versions/{promptsVersion}', [PromptController::class, 'destroyPV'])->name('promptVersions.destroy');
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/base', [PromptController::class, 'index'])->name('base');
+    Route::post('/prompts', [PromptController::class, 'store'])->name('prompts.store');
+    Route::post('/prompt-versions/{prompt}', [PromptVersionController::class, 'store'])->name('promptVersions.store');
+    Route::patch('/prompt/{prompt}', [PromptController::class, 'update'])->name('prompts.update');
+    Route::patch('/prompt-versions/{promptsVersion}', [PromptVersionController::class, 'update'])->name('promptVersions.update');
+    Route::delete('/prompts/{prompt}', [PromptController::class, 'destroy'])->name('prompts.destroy');
+    Route::delete('/prompt-versions/{promptsVersion}', [PromptVersionController::class, 'destroy'])->name('promptVersions.destroy');
+});

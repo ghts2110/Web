@@ -27,7 +27,7 @@ class PromptController extends Controller
         ]);
     }
 
-    public function storeP(Request $request)
+    public function store(Request $request)
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -47,24 +47,8 @@ class PromptController extends Controller
         return redirect()->route('base');
     }
 
-    public function storePV(Request $request, Prompt $prompt)
-    {
-        $data = $request->validate([
-            'content' => ['required', 'string'],
-        ]);
-
-        $nextVersion = $prompt->versions()->count();
-
-        PromptVersion::create([
-            'prompt_id' => $prompt->id,
-            'name' => $prompt->name . '.v' . $nextVersion,
-            'content' => $data['content'], 
-        ]);
-
-        return redirect()->route('base');
-    }
-
-    public function updateP(Request $request, Prompt $prompt)
+    
+    public function update(Request $request, Prompt $prompt)
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -75,18 +59,8 @@ class PromptController extends Controller
         return redirect()->back();
     }
 
-    public function updatePV(Request $request, PromptVersion $promptsVersion)
-    {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-        ]);
-
-        $promptsVersion->update($data);
-
-        return redirect()->back();
-    }
-
-    public function destroyP(Prompt $prompt)
+    
+    public function destroy(Prompt $prompt)
     {
         $prompt->versions()->delete(); 
         $prompt->delete();
@@ -94,10 +68,5 @@ class PromptController extends Controller
         return redirect()->back();
     }
 
-    public function destroyPV(PromptVersion $promptsVersion)
-    {
-        $promptsVersion->delete();
-
-        return redirect()->back();
-    }
+    
 }
